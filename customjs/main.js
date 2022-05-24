@@ -21,7 +21,7 @@ function layThongTinNV(doesAdd) {
     var _pass = getID("password").value;
     var _ngayLam = getID("datepicker").value;
     var _luongCoBan = getID("luongCB").value;
-    var _chucvu = getID("chucvu").value;
+    var _chucVu = getID("chucVu").value;
     var _workingHours = getID("gioLam").value;
     // Flag - isValid là true hợp lệ / false: không hợp lệ.
     var isValid = true;
@@ -98,7 +98,7 @@ function layThongTinNV(doesAdd) {
 
     // Chuc vu
     isValid &= validation.kiemTraChucVu
-        ("chucvu",
+        ("chucVu",
             "tbChucVu",
             "(*) Vui lòng chọn chức vụ hợp lệ (Giám đốc, Trưởng Phòng, Nhân Viên)"
         );
@@ -126,7 +126,7 @@ function layThongTinNV(doesAdd) {
         _pass,
         _ngayLam,
         _luongCoBan,
-        _chucvu,
+        _chucVu,
         _workingHours
     );
 
@@ -202,7 +202,7 @@ function suaNV(id) {
         getID("password").value = nv.pass;
         getID("datepicker").value = nv.ngayLam;
         getID("luongCB").value = nv.luongCoBan;
-        getID("chucvu").value = nv.chucvu;
+        getID("chucVu").value = nv.chucVu;
         getID("gioLam").value = nv.workingHours;
     }
     // disable input#tknv
@@ -211,6 +211,7 @@ function suaNV(id) {
     //hide btn#btnThemNV #btnCapNhat
     getID("btnThemNV").style.display = "none";
     getID("btnThem").style.display = "none";
+
     //show btn#btnCapNhat
     getID("btnCapNhat").style.display = "block";
     getID("refresh").style.display = "inline";
