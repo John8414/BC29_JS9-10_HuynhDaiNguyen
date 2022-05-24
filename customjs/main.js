@@ -1,3 +1,9 @@
+function getID(id) {
+    return document.getElementById(id);
+}
+function display(id, onOff) {
+    return getID(id).style.display = onOff;
+}
 var dsnv = new DanhSachNhanVien();
 var validation = new Validation();
 var nhanVien = new NhanVien();
@@ -8,9 +14,6 @@ nhanVien.xepLoaiNhanVien();
 // Gọi getLocalStorage
 getLocalStorage();
 
-function getID(id) {
-    return document.getElementById(id);
-}
 
 
 function layThongTinNV(doesAdd) {
@@ -28,93 +31,111 @@ function layThongTinNV(doesAdd) {
 
     // Check validation
     if (doesAdd) {
-        // Tai khoan NV
-        isValid &= validation.kiemTraDoDaiKiTu
-            (_taiKhoan,
-                "tbTKNV",
-                4,
-                6,
-                "(*) Tài khoản nhập tối đa 4 - 6 ký số, không để trống"
-            ) && validation.kiemTraTKTonTai
-                (
-                    _taiKhoan,
-                    "tbTKNV",
-                    "(*) Tài khoản đã tồn tại",
-                    dsnv.arr
-                );
+        // taiKhoanNV
+        isValid &= validation.kiemTraRong(
+            _taiKhoan,
+            "tbTKNV",
+            "(*) Vui lòng không để trống!"
+        ) && validation.kiemTraDoDaiKiTu(
+            _taiKhoan,
+            "tbTKNV",
+            4,
+            6,
+            "(*) Tài khoản phải nhập từ 4 - 6 ký số!"
+        ) && validation.kiemTraTKTonTai(
+            _taiKhoan,
+            "tbTKNV",
+            "(*) Tài khoản đã tồn tại",
+            dsnv.arr
+        );
     }
     // TenNV 
-    isValid &= validation.kiemTraChuoiKiTu
-        (_tenNV,
-            "tbTen",
-            "(*) Tên nhân viên phải là chữ, không để trống"
-        );
+    isValid &= validation.kiemTraRong(
+        _tenNV,
+        "tbTen",
+        "(*) Vui lòng không để trống!"
+    ) && validation.kiemTraChuoiKiTu(
+        _tenNV,
+        "tbTen",
+        "(*) Tên nhân viên phải là chữ!"
+    );
 
     // Email
-    isValid &= validation.kiemTraEmail
-        (_email,
-            "tbEmail",
-            "(*) Email phải đúng định dạng, không để trống"
-        );
+    isValid &= validation.kiemTraRong(
+        _email,
+        "tbEmail",
+        "(*) Vui lòng không để trống!"
+    ) && validation.kiemTraEmail(
+        _email,
+        "tbEmail",
+        "(*) Email phải đúng định dạng vd:@gmail.com/edu... !"
+    );
 
     // Password
-    isValid &= validation.kiemTraDoDaiKiTu
-        (_pass,
-            "tbMatKhau",
-            6,
-            10,
-            "(*) mật Khẩu từ 6-10 ký tự"
-        ) && validation.kiemTraPassword
-            (
-                _pass,
-                "tbMatKhau",
-                "(*) Mật khẩu phải chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt "
-            );
+    isValid &= validation.kiemTraRong(
+        _pass,
+        "tbMatKhau",
+        "(*) Vui lòng không để trống!"
+    ) && validation.kiemTraDoDaiKiTu(
+        _pass,
+        "tbMatKhau",
+        6,
+        10,
+        "(*) mật Khẩu từ 6-10 ký tự!"
+    ) && validation.kiemTraPassword(
+        _pass,
+        "tbMatKhau",
+        "(*) Mật khẩu phải chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt "
+    );
 
     // Ngay lam
-    isValid &= validation.kiemTraRong
-        (
-            _ngayLam,
-            "tbNgay",
-            "(*) Ngày làm không để trống, định dạng mm/dd/yyyy"
-        );
+    isValid &= validation.kiemTraRong(
+        _ngayLam,
+        "tbNgay",
+        "(*) Ngày làm không để trống, định dạng mm/dd/yyyy"
+    );
 
     // luongCoBan
 
     //chỗ lương cơ bản nên truyền thêm đối 2 đối số 1.000.000 - 20.000.000 nếu sai ko cho nhập
-    isValid &= validation.kiemTraNumber
-        (_luongCoBan,
-            "tbLuongCB",
-            "(*) Vui lòng nhập lương cơ bản, không để trống"
-        ) && validation.kiemTraSoLuong
-            (
-                _luongCoBan,
-                "tbLuongCB",
-                1000000,
-                20000000,
-                "(*) Lương cơ bản 1.000.000 - 20.000.000, không nhập nhỏ hoặc lớn hơn"
-            );
+    isValid &= validation.kiemTraRong(
+        _luongCoBan,
+        "tbLuongCB",
+        "(*) Vui lòng không để trống!"
+    ) && validation.kiemTraNumber(
+        _luongCoBan,
+        "tbLuongCB",
+        "(*) Vui lòng nhập lương cơ bản bằng số!"
+    ) && validation.kiemTraSoLuong(
+        _luongCoBan,
+        "tbLuongCB",
+        1000000,
+        20000000,
+        "(*) Lương cơ bản 1.000.000 - 20.000.000, không nhập nhỏ hoặc lớn hơn"
+    );
 
 
     // Chuc vu
-    isValid &= validation.kiemTraChucVu
-        ("chucVu",
-            "tbChucVu",
-            "(*) Vui lòng chọn chức vụ hợp lệ (Giám đốc, Trưởng Phòng, Nhân Viên)"
-        );
+    isValid &= validation.kiemTraChucVu("chucVu",
+        "tbChucVu",
+        "(*) Vui lòng chọn chức vụ hợp lệ (Giám đốc, Trưởng Phòng, Nhân Viên)"
+    );
     // WorkingHours
-    isValid &= validation.kiemTraNumber
-        (_workingHours,
-            "tbGiolam",
-            "(*) Vui lòng nhập số giờ, không để trống"
-        ) && validation.kiemTraSoLuong
-            (
-                _workingHours,
-                "tbGiolam",
-                80,
-                200,
-                "(*) Số giờ làm trong tháng 80 - 200 giờ, không nhập nhỏ hoặc lớn hơn"
-            );
+    isValid &= validation.kiemTraRong(
+        _workingHours,
+        "tbGiolam",
+        "(*) Vui lòng không để trống!"
+    ) && validation.kiemTraNumber(
+        _workingHours,
+        "tbGiolam",
+        "(*) Vui lòng nhập số giờ bằng số!"
+    ) && validation.kiemTraSoLuong(
+        _workingHours,
+        "tbGiolam",
+        80,
+        200,
+        "(*) Số giờ làm trong tháng 80 - 200 giờ, không nhập nhỏ hoặc lớn hơn"
+    );
     // Check isValid
     if (!isValid) return;
 
@@ -206,15 +227,22 @@ function suaNV(id) {
         getID("gioLam").value = nv.workingHours;
     }
     // disable input#tknv
+
     getID("tknv").disabled = true;
 
     //hide btn#btnThemNV #btnCapNhat
-    getID("btnThemNV").style.display = "none";
-    getID("btnThem").style.display = "none";
+    // getID("btnThemNV").style.display = "none";
+    // getID("btnThem").style.display = "none";
+    // getID("tbTKNV").style.display = "none";
+    display("btnThemNV", "none");
+    display("btnThem", "none");
+    display("tbTKNV", "none");
 
     //show btn#btnCapNhat
-    getID("btnCapNhat").style.display = "block";
-    getID("refresh").style.display = "inline";
+    // getID("btnCapNhat").style.display = "block";
+    // getID("refresh").style.display = "inline";
+    display("btnCapNhat", "block");
+    display("refresh", "inline");
 
 
 }
@@ -224,6 +252,7 @@ function suaNV(id) {
  */
 getID("btnCapNhat").onclick = function () {
     var nhanVien = layThongTinNV(false);
+
     dsnv.capNhat(nhanVien);
     renderStaffTable(dsnv.arr);
     setLocalStorage();
@@ -232,11 +261,18 @@ getID("btnCapNhat").onclick = function () {
 /**
  * Tim kiem NV 
  */
+//look up by keyup
 getID("searchName").addEventListener("keyup", function () {
     var searchName = getID("searchName").value;
     var mangTimKiem = dsnv.timKiemNV(searchName);
     renderStaffTable(mangTimKiem);
 });
+// look up by btn#btnTimNV
+getID("btnTimNV").onclick = function () {
+    var searchName = getID("searchName").value;
+    var mangTimKiem = dsnv.timKiemNV(searchName);
+    renderStaffTable(mangTimKiem);
+};
 
 function setLocalStorage() {
     // Convert from JSON to String
