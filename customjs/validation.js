@@ -106,5 +106,17 @@ function Validation() {
         getID(tbId).style.display = "block";
         return false;
     };
+    this.kiemTraSoLuong = function (value, tbId, min, max, mess) {
+        if (value >= min & value <= max) {
+            // true
+            getID(tbId).innerHTML = "";
+            getID(tbId).style.display = "none";
+            return true;
+        }
+        // false 
+        getID(tbId).innerHTML = mess;
+        getID(tbId).style.display = "block";
+        return false;
+    };
 
-}
+};

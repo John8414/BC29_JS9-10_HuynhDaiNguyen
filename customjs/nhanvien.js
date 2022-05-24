@@ -27,7 +27,8 @@ function NhanVien(
     };
 
     this.xepLoaiNhanVien = function () {
-        if (this.workingHours < 80 || this.workingHours >= 200) return this.xepLoaiNV = "không đủ điều kiện xếp loại nhân viên";
+        //đã có validation nên bỏ câu dưới
+        // if (this.workingHours <= 80 && this.workingHours >= 200) return this.xepLoaiNV = "không đủ điều kiện xếp loại nhân viên";
         if (this.workingHours >= 192) return this.xepLoaiNV = "Nhân viên xuất sắc";
         if (this.workingHours >= 176) return this.xepLoaiNV = "Nhân viên giỏi";
         if (this.workingHours >= 160) return this.xepLoaiNV = "Nhân viên khá";

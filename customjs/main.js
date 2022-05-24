@@ -63,12 +63,12 @@ function layThongTinNV(doesAdd) {
             "tbMatKhau",
             6,
             10,
-            "(*) mật Khẩu từ 6-10 ký tự (chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt), không để trống "
+            "(*) mật Khẩu từ 6-10 ký tự"
         ) && validation.kiemTraPassword
             (
                 _pass,
                 "tbMatKhau",
-                "(*) mật Khẩu từ 6-10 ký tự (chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt), không để trống "
+                "(*) Mật khẩu phải chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt "
             );
 
     // Ngay lam
@@ -85,15 +85,16 @@ function layThongTinNV(doesAdd) {
     isValid &= validation.kiemTraNumber
         (_luongCoBan,
             "tbLuongCB",
-            "(*) Lương cơ bản 1.000.000 - 20.000.000, không để trống"
-        ) && validation.kiemTraDoDaiKiTu
+            "(*) Vui lòng nhập lương cơ bản, không để trống"
+        ) && validation.kiemTraSoLuong
             (
                 _luongCoBan,
                 "tbLuongCB",
-                7,
-                8,
-                "(*) Lương cơ bản 1.000.000 - 20.000.000, không để trống"
+                1000000,
+                20000000,
+                "(*) Lương cơ bản 1.000.000 - 20.000.000, không nhập nhỏ hoặc lớn hơn"
             );
+
 
     // Chuc vu
     isValid &= validation.kiemTraChucVu
@@ -101,20 +102,18 @@ function layThongTinNV(doesAdd) {
             "tbChucVu",
             "(*) Vui lòng chọn chức vụ hợp lệ (Giám đốc, Trưởng Phòng, Nhân Viên)"
         );
-
     // WorkingHours
-    // lớn hoặc nhỏ hơn 80 - 200 giờ ko cho nhập
     isValid &= validation.kiemTraNumber
         (_workingHours,
             "tbGiolam",
-            "(*) Số giờ làm trong tháng 80 - 200 giờ, không để trống"
-        ) && validation.kiemTraDoDaiKiTu
+            "(*) Vui lòng nhập số giờ, không để trống"
+        ) && validation.kiemTraSoLuong
             (
                 _workingHours,
                 "tbGiolam",
-                2,
-                3,
-                "(*) Số giờ làm trong tháng 80 - 200 giờ, không để trống"
+                80,
+                200,
+                "(*) Số giờ làm trong tháng 80 - 200 giờ, không nhập nhỏ hoặc lớn hơn"
             );
     // Check isValid
     if (!isValid) return;
