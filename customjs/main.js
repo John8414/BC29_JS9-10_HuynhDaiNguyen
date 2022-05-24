@@ -148,7 +148,10 @@ getID("btnThemNV").onclick = function () {
         dsnv.themNV(nhanVien);
         renderStaffTable(dsnv.arr);
         setLocalStorage();
+        //hide btn#btnCapNhat
+        // getID("btnCapNhat").style.display = "none";
     }
+
 };
 
 function renderStaffTable(data) {
@@ -204,6 +207,15 @@ function suaNV(id) {
     }
     // disable input#tknv
     getID("tknv").disabled = true;
+
+    //hide btn#btnThemNV #btnCapNhat
+    getID("btnThemNV").style.display = "none";
+    getID("btnThem").style.display = "none";
+    //show btn#btnCapNhat
+    getID("btnCapNhat").style.display = "block";
+    getID("refresh").style.display = "inline";
+
+
 }
 
 /**
@@ -242,3 +254,4 @@ function getLocalStorage() {
         renderStaffTable(dsnv.arr);
     }
 }
+
